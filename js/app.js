@@ -35,15 +35,17 @@ const formatoPorcentaje = (valor) =>{
 // • Es una función flecha
 const cargarCabecero = ()=>{
 
-    console.log(formatoMoneda(presupuesto));
-    console.log(formatoPorcentaje(porcentajeEgreso));
-    console.log(formatoMoneda(totalIngresos()));
-    console.log(formatoMoneda(totalEgresos()));
 
     // • Crea una variable llamada presupuesto y asígnale el resultado de la resta de la funció totalIngresos() menos el contenido de la función totalEgresos().
     // • Crea una variable porcentajeEgreso y asígnale el resultado de la división de la función totalEgresos() entre el resultado de la función totalIngresos().
     let presupuesto = totalIngresos() - totalEgresos();
     let porcentajeEgreso = totalEgresos() / totalIngresos();
+
+
+    console.log(formatoMoneda(presupuesto));
+    console.log(formatoPorcentaje(porcentajeEgreso));
+    console.log(formatoMoneda(totalIngresos()));
+    console.log(formatoMoneda(totalEgresos()));
 }
 // • Crea la función totalIngresos con estas características:
 // • Defínela como función flecha
