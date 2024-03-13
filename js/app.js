@@ -4,9 +4,9 @@ import Ingreso from './Ingreso.js';
 
 let ingresos =[
     new Ingreso('Salario', 65000),
-    new Ingreso('Mesada', 5000),
     new Ingreso('Esposo', 30000)
 ];
+
 let egresos =[
     new Egreso('Renta', 4000),
     new Egreso('Ropa', 800)
@@ -20,16 +20,22 @@ let egresos =[
     // sugiere pongas el valor MXN y mínimo de dígitos decimales igual a 2.
 
 const formatoMoneda = (valor) =>{
-    return valor.toLocaleString('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2 });
-}
+    return valor.toLocaleString('es-MX', { 
+        style: 'currency', 
+        currency: 'MXN', 
+        minimumFractionDigits: 2 
+    });
+};
 // • Crea la función formatoPorcentaje con las siguientes características:
 // • Créala como función flecha
 // • Se debe recibir el valor que se requiere formatear.
 // • Utiliza la función toLocaleString, especificando el idioma que se desea utilizar. Posteriormente, especifica un objeto en el que indiques el estilo, para este caso será
 // percent y el mínimo de dígitos decimales igual a 2.
 const formatoPorcentaje = (valor) =>{
-    return valor.toLocaleString('es-MX', { style: 'percent', minimumFractionDigits: 2 });
-}
+    return valor.toLocaleString('es-MX', { 
+        style: 'percent', 
+        minimumFractionDigits: 2 });
+};
 
 
 // • Crea la función cargarCabecero con las siguientes características:
@@ -51,9 +57,8 @@ const cargarCabecero = ()=>{
     document.getElementById('porcentaje').innerHTML = formatoPorcentaje(porcentajeEgreso);
     document.getElementById('ingreso').innerHTML = formatoMoneda(totalIngresos());
     document.getElementById('egresos').innerHTML = formatoMoneda(totalEgresos());
-
-
 };
+
 // • Crea la función totalIngresos con estas características:
 // • Defínela como función flecha
 // • Declara la variable totalIngresos e inicialízala en 0.
@@ -64,7 +69,7 @@ const totalIngresos = () =>{
         totalIngreso += i.valor;
     }
     return totalIngreso;
-} 
+};
 
 // • Crea la función totalEgresos con estas características:
 // • Defínela como una función flecha
@@ -77,39 +82,152 @@ const totalEgresos = () =>{
         totalEgreso += e.valor;
     }
     return totalEgreso;
-} 
+};
 
-// Para cargar los ingresos dinámicamente, es necesario recorrer el arreglo ingresos. Para ello, crea la siguiente función:
-const cargarIngresos =() => {
-    let ingresosHTML = '';
-    for (const ingreso of ingresos) {
-        ingresosHTML += crearIngresoHTML(ingreso);
+// Para programar la función eliminarIngreso
+function eliminarIngreso(id){
+    // obtén el índice del elemento que se desea eliminar,
+    let indiceEliminar = ingresos.findIndex(ingreso=>ingreso.id === id);
+    if (indiceEliminar !== -1){
+        ingresos.splice(indiceEliminar,1) //Eiminar el elemento y solo uno
+        console.log("Ingreso Eliminado:", id);
+        cargarCabecero();
+        cargarEgresos();
     }
-    const listaIngresosElement = document.getElementById('lista_ingresos');
-    listaIngresosElement.innerHTML = ingresosHTML;
-    console.log("Ingresos cargados:", ingresos);
+    else{
+        console.log("No se encontró Ingreso", id);
+    }
+
+
+};
+
+
+
+// Para programar la función eliminarEgreso
+function eliminarEgreso(id){
+    // obtén el índice del elemento que se desea eliminar,
+    let indiceEliminar = egresos.findIndex(egreso=>egreso.id === id);
+    if (indiceEliminar !== -1){
+        egresos.splice(indiceEliminar,1) //Eiminar el elemento y solo uno
+        console.log("Egreso Eliminado:", id);
+        cargarCabecero();
+        cargarEgresos();
+    }
+    else{
+        console.log("No se encontró Egreso", id);
+    }
+
+
 };
 
 // • Como se desea que cada elemento generado por crearIngresoHTML cree dinámicamente el contenido del div lista-ingresos, debes crear todo el contenido html dentro de la función.
 const crearIngresoHTML = (ingreso) => {
     const ingresoHTML = `
+        <div class="lista-ingresos">
+            <div class="elemento limpiarEstilos">
+                <div class="elemento_descripcion">${ingreso.descripcion}</div>
+                <div class="derecha limpiarEstilos">
+                    <div class="elemento_valor">${formatoMoneda(
+                        ingreso.valor
+                        )}</div>
+                    <div class="elemento_eliminar">
+                        <button class="elemento_eliminar--btn" onclick="eliminarIngreso(${ingreso.id})">
+                            <ion-icon name="close-circle-outline"></ion-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+    `;
+    console.log(ingreso.id)
+    return ingresoHTML;
+};
+
+// Como se desea que cada elemento generado por crearEgresoHTML cree dinámicamente el contenido del div lista-ingresos, debes crear todo el contenido html dentro de la función.
+const crearEgresoHTML = (egreso) => {
+    const egresoHTML = `
         <div class="elemento limpiarEstilos">
-            <div class="elemento_descripcion">${ingreso.descripcion}</div>
+            <div class="elemento_descripcion">${egreso.descripcion}</div>
             <div class="derecha limpiarEstilos">
-                <div class="elemento_valor">${formatoMoneda(ingreso.valor)}</div>
+                <div class="elemento_valor">${formatoMoneda(
+                    egreso.valor
+                    )}</div>
                 <div class="elemento_eliminar">
-                    <button class="elemento_eliminar--btn" onclick="${(ingreso)=>(eliminarIngreso(ingreso.getId()))}">
-                        <ion-icon name="close-circle-outline"></ion-icon>
+                <button class="elemento_eliminar--btn">
+                    <ion-icon name="close-circle-outline" onclick="eliminarEgreso(${egreso.id})"></ion-icon>
                     </button>
                 </div>
             </div>
         </div>
     `;
-    return ingresoHTML;
+    return egresoHTML;
 };
 
+
+
+// Para cargar los ingresos dinámicamente, es necesario recorrer el arreglo ingresos. Para ello, crea la siguiente función:
+const cargarIngresos =() => {
+    let ingresosHTML = "";
+    for (const ingreso of ingresos) {
+        ingresosHTML += crearIngresoHTML(ingreso);
+    }
+    const listaIngresosElement = document.getElementById('lista-ingresos');
+    listaIngresosElement.innerHTML = ingresosHTML;
+    console.log("Ingresos cargados:", ingresos);
+};
+
+// Para cargar los egresos dinámicamente, es necesario recorrer el arreglo egresos. Para ello, crea la siguiente función:
+const cargarEgresos =() => {
+    let egresosHTML = "";
+    for (const egreso of egresos) {
+        egresosHTML += crearIngresoHTML(egreso);
+    }
+    const listaEgresosElement = document.getElementById('lista-egresos');
+    listaEgresosElement.innerHTML = egresosHTML;
+    console.log("Egresos cargados:", egresos);
+};
+
+const agregaDato =() =>{
+    const forma = document.getElementById('forma');
+    const tipo = document.getElementById('tipo').value;
+    const descripcion = document.getElementById('descripcion').value;
+    const valor = document.getElementById('valor').value;  // Asegúrate de que 'valor' exista
+    let i = 0;
+
+    // • Valida que el valor de descripcion y de valor no estén vacíos. Si la condición se cumple:
+    if (descripcion.trim()==="" || valor.trim ===""){
+        alert("Favor de ingresar un dato válido en Descripción y Valor");
+        return;
+    };
+    // Valida si el valor de tipo es igual a ingreso o egreso y ponlo en su lugar
+    if(tipo === 'ingreso'){
+        ingresos.push(new Ingreso(descripcion, parseFloat(valor)));
+        i = 1;
+
+    } else if (tipo === 'egreso'){
+        egresos.push(new Egreso(descripcion, parseFloat(valor)));
+        i = 2;
+    };
+
+    if (i>0){
+        cargarCabecero();
+        if (i=== 1){
+            cargarIngresos();
+        } else {
+            cargarEgresos();
+        }
+
+    }
+
+};
 
 const cargarApp = () =>{
     cargarCabecero();
     cargarIngresos();
+    cargarEgresos();
+
 };
+
+document.addEventListener("DOMContentLoaded", cargarApp()); // Aqui se carga el metodo cargarapp cuando se acaba de cargar el documento sin meterlo al html
+window.eliminarEgreso = eliminarEgreso;
+window.eliminarIngreso = eliminarIngreso;
+window.agregaDato = agregaDato;
