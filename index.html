@@ -15,7 +15,8 @@
     <title>Presupuesto Claudia Ogazón</title>
 </head>
 
-<body>
+<body onload = "cargarApp()">
+
     <!-- • Crea un div en el que utilices la clase cabecero del css provisto. -->
     <div class="cabecero">
         <!-- • Dentro de este, crea un div con la clase presupuesto -->
@@ -24,7 +25,7 @@
             “Presupuesto Disponible”. -->
             <div class="presupuesto_titulo">Presupuesto Disponible</div>
             <!-- A continuación, crea un div con la clase presupuesto_valor, si gustas, ponle +2,000.00. -->
-            <div class="presupuesto_valor">+2,000.00</h2></div>
+            <div id="presupuesto" class="presupuesto_valor" >+2,000.00</h2></div>
             <!-- Crea otro div con las clases presupuesto_ingreso y limpiarEstilos y, dentro de este div,
             crea dos div -->
             <div class="presupuesto_ingreso limpiarEstilos">
@@ -32,7 +33,7 @@
                     <!-- En el siguiente div, coloca la clase derecha y crea nuevamente otros 2 div dentro de este: -->
                     <div class="derecha">
                         <!-- En el primer div, coloca la clase presupuesto_ingreso—valor y colócale una cadena, por ejemplo, +4,000.00 -->
-                        <div class="presupuesto_ingreso--valor">+4,000.00</div>
+                        <div id="ingreso" class="presupuesto_ingreso--valor">+4,000.00</div>
                         <!-- En el segundo div, colócale las clases presupuesto_ingreso--porcentaje y colócale solamente un espacio. -->
                         <div class="presupuesto_ingreso--porcentaje">&nbsp</div>
                     </div>
@@ -43,9 +44,9 @@
                 <!-- En el siguiente div, coloca la clase derecha y crea nuevamente otros 2 div dentro de este: -->
                 <div class="derecha limpiarEstilos">
                     <!-- En el primer div, coloca la clase presupuesto_ingreso—valor y colócale una cadena, por ejemplo, +4,000.00 -->
-                    <div class="presupuesto_egreso--valor">-1,900.00</div>
+                    <div id="egresos" class="presupuesto_egreso--valor">900.00</div>
                     <!-- En el segundo div, colócale las clases presupuesto_ingreso--porcentaje y colócale solamente un espacio. -->
-                    <div class="presupuesto_egreso--porcentaje">45%</div>
+                    <div id="porcentaje" class="presupuesto_egreso--porcentaje">25%</div>
                 </div>
             </div>
         </div>
