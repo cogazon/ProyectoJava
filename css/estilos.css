@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .limpiarEstilos::after {
@@ -32,6 +33,7 @@ body {
     padding-top: 150px;
     padding-bottom: 100px;
     color: #fff;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     background: url(fondo.png), #7b4397;
     background: url(fondo.png), -webkit-gradient(linear, right top, left top, from(#7b4397), to(#dc2430));
     background: url(fondo.png), linear-gradient(to left, #7b4397, #dc2430)
