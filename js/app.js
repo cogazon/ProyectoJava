@@ -3,8 +3,8 @@ import Egreso from './Egreso.js';
 import Ingreso from './Ingreso.js';
 
 let ingresos =[
-    new Ingreso('Salario', 65000),
-    new Ingreso('Esposo', 30000)
+    new Ingreso('Salario', 50000),
+    new Ingreso('Comisiones', 40000)
 ];
 
 let egresos =[
@@ -175,6 +175,7 @@ const crearEgresoHTML = (egreso) => {
     egresoHTML += "    <div class=\"elemento_descripcion\">" + egreso.descripcion + "</div>\n";
     egresoHTML += "        <div class=\"derecha limpiarEstilos\">\n";
     egresoHTML += "            <div class=\"elemento_valor\">" + formatoMoneda(egreso.valor) + "</div>\n";
+    egresoHTML += "            <div class=\"elemento_porcentaje\">" + formatoPorcentaje(egreso.valor/totalEgresos()) + "</div>\n";
     egresoHTML += "            <div class=\"elemento_eliminar\">\n";
     egresoHTML += "            <button class=\"elemento_eliminar--btn\" onclick=\"eliminarEgreso(" + egreso.id + ")\">\n";
     egresoHTML += "                 <ion-icon name=\"close-circle-outline\"></ion-icon>\n";
@@ -226,7 +227,7 @@ const agregaDato =() =>{
     if(tipo === 'ingreso'){
         ingresos.push(new Ingreso(descripcion, parseFloat(valor)));
         i = 1;
-        console.log("lon de Ingreso", ingresos.length)
+        // console.log("lon de Ingreso", ingresos.length)
 
     } else if (tipo === 'egreso'){
         egresos.push(new Egreso(descripcion, parseFloat(valor)));
