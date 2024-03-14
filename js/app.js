@@ -92,7 +92,7 @@ function eliminarIngreso(id){
         ingresos.splice(indiceEliminar,1) //Eiminar el elemento y solo uno
         console.log("Ingreso Eliminado:", id);
         cargarCabecero();
-        cargarEgresos();
+        cargarIngresos();
     }
     else{
         console.log("No se encontró Ingreso", id);
@@ -108,7 +108,7 @@ function eliminarEgreso(id){
     // obtén el índice del elemento que se desea eliminar,
     let indiceEliminar = egresos.findIndex(egreso=>egreso.id === id);
     if (indiceEliminar !== -1){
-        egresos.splice(indiceEliminar,1) //Eiminar el elemento y solo uno
+        egresos.splice(indiceEliminar, 1) //Eiminar el elemento y solo uno
         console.log("Egreso Eliminado:", id);
         cargarCabecero();
         cargarEgresos();
@@ -122,43 +122,66 @@ function eliminarEgreso(id){
 
 // • Como se desea que cada elemento generado por crearIngresoHTML cree dinámicamente el contenido del div lista-ingresos, debes crear todo el contenido html dentro de la función.
 const crearIngresoHTML = (ingreso) => {
-    const ingresoHTML = `
-        <div class="lista-ingresos">
-            <div class="elemento limpiarEstilos">
-                <div class="elemento_descripcion">${ingreso.descripcion}</div>
-                <div class="derecha limpiarEstilos">
-                    <div class="elemento_valor">${formatoMoneda(
-                        ingreso.valor
-                        )}</div>
-                    <div class="elemento_eliminar">
-                        <button class="elemento_eliminar--btn" onclick="eliminarIngreso(${ingreso.id})">
-                            <ion-icon name="close-circle-outline"></ion-icon>
-                        </button>
-                    </div>
-                </div>
-            </div>
-    `;
-    console.log(ingreso.id)
+    // const ingresoHTML = `
+    //     <div class="lista-ingresos">
+    //         <div class="elemento limpiarEstilos">
+    //             <div class="elemento_descripcion">${ingreso.descripcion}</div>
+    //             <div class="derecha limpiarEstilos">
+    //                 <div class="elemento_valor">${formatoMoneda(
+    //                     ingreso.valor
+    //                     )}</div>
+    //                 <div class="elemento_eliminar">
+    //                     <button class="elemento_eliminar--btn" onclick="eliminarIngreso(${len})">
+    //                         <ion-icon name="close-circle-outline"></ion-icon>
+    //                     </button>
+    //                 </div>
+    //             </div>
+    //         </div>
+    // `;
+    let ingresoHTML = "";
+    ingresoHTML += "<div class=\"elemento limpiarEstilos\">\n";
+    ingresoHTML += "    <div class=\"elemento_descripcion\">" + ingreso.descripcion + "</div>\n";
+    ingresoHTML += "        <div class=\"derecha limpiarEstilos\">\n";
+    ingresoHTML += "            <div class=\"elemento_valor\">" + formatoMoneda(ingreso.valor) + "</div>\n";
+    ingresoHTML += "            <div class=\"elemento_eliminar\">\n";
+    ingresoHTML += "            <button class=\"elemento_eliminar--btn\" onclick=\"eliminarIngreso(" + ingreso.id + ")\">\n";
+    ingresoHTML += "                 <ion-icon name=\"close-circle-outline\"></ion-icon>\n";
+    ingresoHTML += "            </button>\n";
+    ingresoHTML += "        </div>\n";
+    ingresoHTML += "    </div>\n";
+    ingresoHTML += "</div>\n";
     return ingresoHTML;
 };
 
 // Como se desea que cada elemento generado por crearEgresoHTML cree dinámicamente el contenido del div lista-ingresos, debes crear todo el contenido html dentro de la función.
 const crearEgresoHTML = (egreso) => {
-    const egresoHTML = `
-        <div class="elemento limpiarEstilos">
-            <div class="elemento_descripcion">${egreso.descripcion}</div>
-            <div class="derecha limpiarEstilos">
-                <div class="elemento_valor">${formatoMoneda(
-                    egreso.valor
-                    )}</div>
-                <div class="elemento_eliminar">
-                <button class="elemento_eliminar--btn">
-                    <ion-icon name="close-circle-outline" onclick="eliminarEgreso(${egreso.id})"></ion-icon>
-                    </button>
-                </div>
-            </div>
-        </div>
-    `;
+    // const egresoHTML = `
+    //     <div class="elemento limpiarEstilos">
+    //         <div class="elemento_descripcion">${egreso.descripcion}</div>
+    //         <div class="derecha limpiarEstilos">
+    //             <div class="elemento_valor">${formatoMoneda(
+    //                 egreso.valor
+    //                 )}</div>
+    //             <div class="elemento_eliminar">
+    //             <button class="elemento_eliminar--btn">
+    //                 <ion-icon name="close-circle-outline" onclick="eliminarEgreso(${egreso.id})"></ion-icon>
+    //                 </button>
+    //             </div>
+    //         </div>
+    //     </div>
+    // `;
+    let egresoHTML = "";
+    egresoHTML += "<div class=\"elemento limpiarEstilos\">\n";
+    egresoHTML += "    <div class=\"elemento_descripcion\">" + egreso.descripcion + "</div>\n";
+    egresoHTML += "        <div class=\"derecha limpiarEstilos\">\n";
+    egresoHTML += "            <div class=\"elemento_valor\">" + formatoMoneda(egreso.valor) + "</div>\n";
+    egresoHTML += "            <div class=\"elemento_eliminar\">\n";
+    egresoHTML += "            <button class=\"elemento_eliminar--btn\" onclick=\"eliminarEgreso(" + egreso.id + ")\">\n";
+    egresoHTML += "                 <ion-icon name=\"close-circle-outline\"></ion-icon>\n";
+    egresoHTML += "            </button>\n";
+    egresoHTML += "        </div>\n";
+    egresoHTML += "    </div>\n";
+    egresoHTML += "</div>\n";
     return egresoHTML;
 };
 
@@ -168,6 +191,7 @@ const crearEgresoHTML = (egreso) => {
 const cargarIngresos =() => {
     let ingresosHTML = "";
     for (const ingreso of ingresos) {
+        // console.log("valor ingreso", ingresos.length)
         ingresosHTML += crearIngresoHTML(ingreso);
     }
     const listaIngresosElement = document.getElementById('lista-ingresos');
@@ -179,7 +203,7 @@ const cargarIngresos =() => {
 const cargarEgresos =() => {
     let egresosHTML = "";
     for (const egreso of egresos) {
-        egresosHTML += crearIngresoHTML(egreso);
+        egresosHTML += crearEgresoHTML(egreso);
     }
     const listaEgresosElement = document.getElementById('lista-egresos');
     listaEgresosElement.innerHTML = egresosHTML;
@@ -202,6 +226,7 @@ const agregaDato =() =>{
     if(tipo === 'ingreso'){
         ingresos.push(new Ingreso(descripcion, parseFloat(valor)));
         i = 1;
+        console.log("lon de Ingreso", ingresos.length)
 
     } else if (tipo === 'egreso'){
         egresos.push(new Egreso(descripcion, parseFloat(valor)));

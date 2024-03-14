@@ -13,10 +13,16 @@ class Ingreso extends Dato {
     
     constructor(descripcion, valor){
         super (descripcion, valor);
-        this._id += Ingreso.contadorIngresos
+        this._id = ++Ingreso.contadorIngresos
+        // console.log("Ingreso JS constructor", this._id)
     }
 
-    get id(){return this._id}
+    get id(){
+
+        // console.log("Ingreso JS", this._id)
+        return this._id
+
+    }
 
 }
 export default Ingreso;
